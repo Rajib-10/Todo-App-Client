@@ -29,7 +29,11 @@ function App() {
       .then((data) => {
         if (data.insertedId) {
           toast.success("Add to list successfully..");
-          location.reload();
+          fetch("https://todo-app-server-self.vercel.app/todo")
+            .then((result) => result.json())
+            .then((updatedData) => {
+              setLoadedData(updatedData);
+            });
           form.reset();
         }
         console.log(data);
@@ -54,12 +58,17 @@ function App() {
 
   return (
     <>
-      <h1 className="text-2xl md:text-3xl lg:text-4xl text-center font-bold py-10">Todo App</h1>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl text-center font-bold py-10">
+        Todo App
+      </h1>
 
       <div>
-        <form onSubmit={handleList} className="md:w-3/4 lg:w-[60%] mx-auto space-y-5">
+        <form
+          onSubmit={handleList}
+          className="md:w-3/4 lg:w-[60%] mx-auto space-y-5"
+        >
           <input
-            className="px-5 py-3 w-full rounded-lg"
+            className="px-5 py-3 w-full rounded-lg border bg-base-300 font-medium"
             type="text"
             required
             name="title"
@@ -68,7 +77,7 @@ function App() {
           />{" "}
           <br />
           <input
-            className="px-5 py-3 w-full rounded-lg"
+            className="px-5 py-3 w-full rounded-lg border bg-base-300 font-medium"
             required
             type="text"
             name="description"
@@ -77,7 +86,7 @@ function App() {
           />{" "}
           <br />
           <input
-            className="btn btn-block btn-neutral"
+            className="btn btn-block  btn-neutral"
             type="submit"
             value="Add List"
           />
@@ -88,12 +97,12 @@ function App() {
               className="md:w-3/4 lg:w-[60%] mx-auto  bg-base-200 shadow-lg rounded-lg  p-3"
               key={item._id}
             >
-              <div className="flex justify-between">
+              <div className="flex justify-between items-start">
                 <div>
                   <h1 className="text-2xl font-bold italic">{item.title}</h1>
                   <p className="font-semibold">{item.description}</p>
                 </div>
-                <div className="flex gap-6 items-center">
+                <div className="flex gap-6 items-center px-4">
                   <Link to={`/todo/${item._id}`}>
                     <button>
                       <BiEdit />

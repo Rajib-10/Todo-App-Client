@@ -24,8 +24,8 @@ const Update = () => {
       .then((result) => result.json())
       .then((data) => {
         if (data.modifiedCount) {
-          toast.success("Todo updated successfully.");
           navigate("/");
+          toast.success("Todo updated successfully.");
         }
         console.log(data);
       });
@@ -38,7 +38,7 @@ const Update = () => {
       </h1>
       <form onSubmit={handleList} className="md:w-3/4 lg:w-[60%] mx-auto space-y-5">
         <input
-          className="px-5 py-3 w-full rounded-lg"
+          className="px-5 py-3 w-full rounded-lg border bg-base-300 font-medium"
           defaultValue={loadedData.title}
           type="text"
           name="title"
@@ -47,7 +47,7 @@ const Update = () => {
         />{" "}
         <br />
         <input
-          className="px-5 py-3 w-full rounded-lg"
+          className="px-5 py-3 w-full rounded-lg border bg-base-300 font-medium"
           defaultValue={loadedData?.description}
           type="text"
           name="description"
